@@ -7,7 +7,7 @@ engine = create_engine(Settings.DATABASE_URL, connect_args={"check_same_thread":
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bin=engine)
 
-base = declarative_base()
+Base = declarative_base()
 
 
 def get_db():
