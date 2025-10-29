@@ -15,7 +15,7 @@ def register_user(db: Session, user: UserLoginRequest):
     new_user = User(
         username = user.username,
         email = user.email,
-        hash_password = hashed_pw,
+        hashed_password = hashed_pw,
         role = user.role
 
     )

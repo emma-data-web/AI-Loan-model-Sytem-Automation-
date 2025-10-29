@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class LoanRequest(BaseModel):
-    applicant_name : str
+    applicant : str
     amount : float
     income : float
     credit_score : float
@@ -9,7 +9,7 @@ class LoanRequest(BaseModel):
 
 class LoanResponse(BaseModel):
     id : int
-    appilicant_name : str
+    appilicant : str
     amount : float
     income : float
     credit_score : float
