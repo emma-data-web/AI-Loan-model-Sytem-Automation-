@@ -8,7 +8,7 @@ from schemas.loan_schema import LoanRequest
 
 def create_loan(db: Session, loan_data: LoanRequest):
     new_loan = UserLoan(
-       applicant_name = loan_data.applicant_name,
+       applicant = loan_data.applicant,
        amount = loan_data.amount,
        income = loan_data.income,
        credit_score = loan_data.credit_score,
