@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from schemas.loan_schema import LoanCreateRequest, LoanResponse
 from services.loan_service import create_loan, get_user_loans
-from app.dependencies import get_current_user  # assuming JWT auth
+from app.dependencies import get_current_user  
 
 router = APIRouter(prefix="/loans", tags=["Loans"])
 
