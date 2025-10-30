@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 
-model = joblib.load("loan_model.pkl")
+model = joblib.load("ml_models/loan_model.pkl")
 
 def create_loan(db: Session, user_id: int, amount: float, duration: int, purpose: str):
     
