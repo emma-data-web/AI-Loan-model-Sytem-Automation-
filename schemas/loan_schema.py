@@ -1,23 +1,20 @@
 from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime
 
-class LoanRequest(BaseModel):
-    applicant : str
-    amount : float
-    income : float
-    credit_score : float
-
+class LoanCreateRequest(BaseModel):
+    amount: float
+    duration: int
+    purpose: Optional[str] = None
 
 class LoanResponse(BaseModel):
-    id : int
-    appilicant : str
-    amount : float
-    income : float
-    credit_score : float
-    status : str
-    risk_score : float
+    id: int
+    amount: float
+    duration: int
+    purpose: Optional[str]
+    status: str
+    risk_score: Optional[float]
+    timestamp: datetime
 
     class Config:
         orm_mode = True
-
-
-    

@@ -1,20 +1,18 @@
-from sqlalchemy import Column, Integer,  String, Float
-from app.core.database import Base
+from sqlalchemy import Column, Integer, String, Float, DateTime, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
+from app.core.database  import Base
+from datetime import datetime
 
-
-class UserLoan(Base):
-    __tablename__ = "loan"
+class Loan(Base):
+    __tablename__ = "loans"
 
     id = Column(Integer, primary_key=True, index=True)
-    applicant_name = Column(String, nullable=False)
-    applicant_income = Column(Float, nullable=False)
-    applicant_amount = Column(Float, nullable=False)
-    loan_amount = Column(Float, nullable=False)
-    loan_term = Column(Float, nullable=False)
-    credit_score = Column(Float, nullable=False)
-    gender = Column(String, nullable=False)
-    age = Column(Integer, nullable=False)
-    employment_status = Column(String, nullable=False)
-    purpose = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    amount = Column(Float, nullable=False)
+    duration = Column(Integer, nullable=False)
+    purpose = Column(String, nullable=True)
     status = Column(String, default="pending")
-    prediction_score = Column(Float, nullable=True)
+    risk_score = Column(Float, nullable=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="loans")
