@@ -1,32 +1,21 @@
+from models.loan_model import Loan
+from app.core.database import SessionLocal
 from sqlalchemy.orm import Session
-from  fastapi import HTTPException
-from models.loan_model import UserLoan
-from schemas.loan_schema import LoanRequest
+from datetime import datetime
 
-
-#create new loan
-
-def create_loan(db: Session, loan_data: LoanRequest):
-    new_loan = UserLoan(
-       applicant = loan_data.applicant,
-       amount = loan_data.amount,
-       income = loan_data.income,
-       credit_score = loan_data.credit_score,
-       status = "pending",
-       risk_score = None
+def create_loan(db: Session, user_id: int, amount: float, duration: int, purpose: str = None):
+    new_loan = Loan(
+        user_id=user_id,
+        amount=amount,
+        duration=duration,
+        purpose=purpose,
+        status="pending",
+        timestamp=datetime.utcnow()
     )
-
     db.add(new_loan)
     db.commit()
     db.refresh(new_loan)
     return new_loan
 
-# get all loans
-
-def get_all_loan(db: Session):
-    return db.query(UserLoan).all()
-
-# get one
-def get_single_loan_by_id(db: Session, loan_id: int):
-    return db.query(UserLoan).filter(UserLoan.id == loan_id).first()
-
+def get_user_loans(db: Session, user_id: int):
+    return db.query(Loan).filter(Loan.user_id == user_id).all()

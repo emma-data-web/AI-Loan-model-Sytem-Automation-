@@ -1,25 +1,16 @@
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from schemas.loan_schema import LoanRequest, LoanResponse
-from services.loan_service import create_loan, get_all_loan, get_single_loan_by_id
+from schemas.loan_schema import LoanCreateRequest, LoanResponse
+from services.loan_service import create_loan, get_user_loans
+from app.dependencies import get_current_user  
 
+router = APIRouter(prefix="/loans", tags=["Loans"])
 
-router = APIRouter(prefix="/loan", tags=["LOAN"])
+@router.post("/", response_model=LoanResponse)
+def apply_for_loan(request: LoanCreateRequest, db: Session = Depends(get_db), user: dict = Depends(get_current_user)):
+    return create_loan(db, user["id"], request.amount, request.duration, request.purpose)
 
-@router.post("/apply", response_model=LoanResponse, status_code=status.HTTP_201_CREATED)
-def apply_loan(loan_data: LoanRequest, db: Session= Depends(get_db)):
-    new_loan = create_loan(db, loan_data)
-    return new_loan
-
-@router.get("/all", response_model=list[LoanResponse])
-def list_loan(db: Session = Depends(get_db)):
-    loans = get_all_loan(db)
-    return loans
-
-@router.get("/{loan_id}", response_model=LoanResponse)
-def get_loan_by_id(loan_id: int, db:Session = Depends(get_db)):
-    loan = get_single_loan_by_id(db, loan_id)
-    if not loan:
-        raise HTTPException("user or applicant does not exist")
-    return loan
+@router.get("/", response_model=list[LoanResponse])
+def list_loans(db: Session = Depends(get_db), user: dict = Depends(get_current_user)):
+    return get_user_loans(db, user["id"])
