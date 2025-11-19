@@ -16,3 +16,5 @@ app = FastAPI(title="AI Loan System")
 
 app.include_router(auth_routes)
 app.include_router(loan_routes)
+
+
