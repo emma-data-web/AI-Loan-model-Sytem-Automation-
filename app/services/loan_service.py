@@ -1,6 +1,6 @@
 import joblib
 from sqlalchemy.orm import Session
-from models.loan_model import Loan  
+from app.models.loan_model import Loan  
 import pandas as pd
 import numpy as np
 

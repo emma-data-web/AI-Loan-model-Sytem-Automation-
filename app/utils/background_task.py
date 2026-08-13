@@ -2,8 +2,8 @@ import time
 import pandas as pd
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from services.loan_service import predict_risk  
-from models.loan_model import Loan
+from app.services.loan_service import predict_risk  
+from app.models.loan_model import Loan
 import joblib
 import logging
 

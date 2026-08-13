@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 from  fastapi import HTTPException
-from models.user_model import User
-from schemas.user_schema import UserCreateRequest, UserLoginRequest, UserProfileResponse
-from utils.password_utils import hash_password, verify_password
-from utils.jwt_handler import create_access_token
+from app.models.user_model import User
+from app.schemas.user_schema import UserCreateRequest, UserLoginRequest, UserProfileResponse
+from app.utils.password_utils import hash_password, verify_password
+from app.utils.jwt_handler import create_access_token
 
 
 

@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
 from app.core.database import get_db
-from models.user_model import User
+from app.models.user_model import User
 from app.core.config import settings, oauth2_scheme
 
 def get_current_user(
